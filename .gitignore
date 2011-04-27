@@ -1,0 +1,8 @@
+*~
+*.bak
+
+build/
+BUILD/
+
+*.user
+*.kdev4
