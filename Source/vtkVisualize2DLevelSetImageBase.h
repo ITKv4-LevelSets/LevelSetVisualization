@@ -34,7 +34,6 @@
 #include "vtkRenderer.h"
 #include "vtkRenderWindowInteractor.h"
 #include "vtkRenderWindow.h"
-#include "vtkImageViewer2.h"
 #include "vtkImageShiftScale.h"
 
 #include "vtkCaptureScreen.h"
@@ -63,21 +62,31 @@ public:
   typedef itk::ImageToVTKImageFilter< InputImageType >  ImageConverterType;
   typedef typename ImageConverterType::Pointer          ImageConverterPointer;
 
-  typedef itk::LevelSetImageBaseTovtkImageData< LevelSetImageType >  LevelSetConverterType;
-  typedef typename LevelSetConverterType::Pointer                 LevelSetConverterPointer;
+  typedef itk::LevelSetImageBaseTovtkImageData< LevelSetImageType > LevelSetConverterType;
+  typedef typename LevelSetConverterType::Pointer                   LevelSetConverterPointer;
 
 
   void SetInputImage( const InputImageType * iImage )
     {
     m_ImageConverter->SetInput( iImage );
-    m_ImageConverter->Update();
+    try
+      {
+      m_ImageConverter->Update();
+      }
+    catch( itk::ExceptionObject& e )
+      {
+      std::cout << e.what << std::endl;
+      return;
+      }
+
     m_Count = 0;
     }
 
   void SetLevelSet( const LevelSetType *f )
     {
     m_LevelSetConverter->SetInput( f );
-    m_LevelSetConverter->Update();
+
+
     m_Count = 0;
     }
 
@@ -88,6 +97,16 @@ public:
 
   void Update()
     {
+    try
+      {
+      m_LevelSetConverter->Update();
+      }
+    catch( itk::ExceptionObject& e )
+      {
+      std::cout << e.what << std::endl;
+      return;
+      }
+
     const int LevelSet_id = 0;
     vtkSmartPointer< vtkMarchingSquares > contours =
       vtkSmartPointer< vtkMarchingSquares >::New();
