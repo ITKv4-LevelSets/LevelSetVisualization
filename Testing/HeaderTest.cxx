@@ -20,6 +20,7 @@
 #include "itkLevelSetImageBaseTovtkImageData.txx"
 #include "itkImageToVTKImageFilter.h"
 #include "itkImageToVTKImageFilter.txx"
+#include "vtkVisualize2DLevelSetImageBase.h"
 
 int main( int, char* [] )
 {
