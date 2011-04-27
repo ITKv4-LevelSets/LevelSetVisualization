@@ -21,6 +21,7 @@
 #include "itkImageToVTKImageFilter.h"
 #include "itkImageToVTKImageFilter.txx"
 #include "vtkVisualize2DLevelSetImageBase.h"
+#include "vtkVisualize3DLevelSetImageBase.h"
 
 int main( int, char* [] )
 {

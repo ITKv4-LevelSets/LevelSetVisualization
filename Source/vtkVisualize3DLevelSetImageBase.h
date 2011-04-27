@@ -16,17 +16,17 @@
  *
  *=========================================================================*/
 
-#ifndef __vtkVisualize2DLevelSetImageBase_h
-#define __vtkVisualize2DLevelSetImageBase_h
+#ifndef __vtkVisualize3DLevelSetImageBase_h
+#define __vtkVisualize3DLevelSetImageBase_h
 
-#include "itkLightObject.h"
+#include "itkImage.h"
 
 #include "itkLevelSetImageBase.h"
 #include "itkImageToVTKImageFilter.h"
 #include "itkLevelSetImageBaseTovtkImageData.h"
 
 #include "vtkImageData.h"
-#include "vtkMarchingSquares.h"
+#include "vtkMarchingCubes.h"
 #include "vtkPolyDataMapper.h"
 #include "vtkActor.h"
 #include "vtkImageActor.h"
@@ -34,16 +34,17 @@
 #include "vtkRenderer.h"
 #include "vtkRenderWindowInteractor.h"
 #include "vtkRenderWindow.h"
+#include "vtkImageViewer2.h"
 #include "vtkImageShiftScale.h"
 
 #include "vtkCaptureScreen.h"
 #include "vtkPNGWriter.h"
 
 template< class TInputImage, class TLevelSetImage >
-class vtkVisualize2DLevelSetImageBase : public itk::LightObject
+class vtkVisualize3DLevelSetImageBase : public itk::LightObject
 {
 public:
-  typedef vtkVisualize2DLevelSetImageBase Self;
+  typedef vtkVisualize3DLevelSetImageBase Self;
   typedef LightObject                     Superclass;
   typedef itk::SmartPointer< Self >       Pointer;
   typedef itk::SmartPointer< const Self > ConstPointer;
@@ -52,7 +53,7 @@ public:
   itkNewMacro(Self);
 
   /** Run-time type information (and related methods). */
-  itkTypeMacro(vtkVisualize2DLevelSetImageBase, LightObject);
+  itkTypeMacro(vtkVisualize3DLevelSetImageBase, LightObject);
 
   typedef TInputImage     InputImageType;
   typedef TLevelSetImage  LevelSetImageType;
@@ -106,8 +107,8 @@ public:
       }
 
     const int LevelSet_id = 0;
-    vtkSmartPointer< vtkMarchingSquares > contours =
-      vtkSmartPointer< vtkMarchingSquares >::New();
+    vtkSmartPointer< vtkMarchingCubes > contours =
+      vtkSmartPointer< vtkMarchingCubes >::New();
     contours->SetInput( m_ImageConverter->GetOutput() );
     contours->GenerateValues( LevelSet_id, 0, 0 );
 
@@ -173,7 +174,7 @@ public:
     }
 
 protected:
-  vtkVisualize2DLevelSetImageBase() : Superclass(),
+  vtkVisualize3DLevelSetImageBase() : Superclass(),
     m_Count( 0 ),
     m_ScreenCapture( false )
     {
@@ -181,11 +182,11 @@ protected:
     m_LevelSetConverter = LevelSetConverterType::New();
     }
 
-  ~vtkVisualize2DLevelSetImageBase()
+  ~vtkVisualize3DLevelSetImageBase()
     {}
 
 private:
-  vtkVisualize2DLevelSetImageBase ( const Self& );
+  vtkVisualize3DLevelSetImageBase ( const Self& );
   void operator = ( const Self& );
 
   ImageConverterPointer     m_ImageConverter;
@@ -194,5 +195,5 @@ private:
   itk::IdentifierType m_Count;
   bool                m_ScreenCapture;
 
-};
+  };
 #endif
