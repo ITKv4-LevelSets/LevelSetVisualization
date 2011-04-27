@@ -1,5 +1,5 @@
 set( SRC
-  HeaderTest.cxx
+  HeaderTest
 )
 
 foreach( var ${SRC} )
