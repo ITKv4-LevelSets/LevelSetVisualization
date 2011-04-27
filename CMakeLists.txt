@@ -12,4 +12,5 @@ if( VTK_FOUND )
   include( ${VTK_USE_FILE} )
 endif()
 
-
+add_subdirectory( Examples )
+add_subdirectory( Testing )

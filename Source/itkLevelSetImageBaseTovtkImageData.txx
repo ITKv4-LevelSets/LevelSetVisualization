@@ -35,6 +35,9 @@
 #ifndef __itkLevelSetImageBaseTovtkImageData_txx
 #define __itkLevelSetImageBaseTovtkImageData_txx
 
+#include "vtkImageData.h"
+#include "itkLevelSetImageBaseTovtkImageData.h"
+
 namespace itk
 {
 template< class TImage >

@@ -5,6 +5,8 @@
 #include "itkLevelSetImageBase.h"
 #include "itkImageToVTKImageFilter.h"
 
+class vtkImageData;
+
 namespace itk
 {
 template< class TImage >
