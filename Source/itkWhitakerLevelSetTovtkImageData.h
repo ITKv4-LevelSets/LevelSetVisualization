@@ -42,9 +42,8 @@ public:
   /** Run-time type information (and related methods). */
   itkTypeMacro(ImageToVTKImageFilter, ProcessObject);
 
-  typedef TImage                          ImageType;
-
-  typedef WhitakerSparseLevelSetBase<>  LevelSetType;
+  typedef WhitakerSparseLevelSetBase< TOutput, VDimension >  LevelSetType;
+  typedef typename LevelSetType::OutputImageType             ImageType;
 
   typedef ImageToVTKImageFilter< ImageType >  ConverterType;
   typedef typename ConverterType::Pointer     ConverterPointer;
