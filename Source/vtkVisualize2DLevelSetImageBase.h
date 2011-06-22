@@ -30,6 +30,7 @@
 #include "vtkPolyDataMapper.h"
 #include "vtkActor.h"
 #include "vtkImageActor.h"
+#include "vtkScalarBarActor.h"
 #include "vtkProperty.h"
 #include "vtkRenderer.h"
 #include "vtkRenderWindowInteractor.h"
@@ -82,7 +83,7 @@ public:
     m_Count = 0;
     }
 
-  void SetLevelSet( const LevelSetType *f )
+  void SetLevelSet( LevelSetType *f )
     {
     m_LevelSetConverter->SetInput( f );
     m_Count = 0;
@@ -91,6 +92,22 @@ public:
   void SetScreenCapture( const bool& iCapture )
     {
     m_ScreenCapture = iCapture;
+    }
+
+  void SetNumberOfLevels( const unsigned int& iLevel )
+    {
+    if( iLevel > 0 )
+      {
+      m_NumberOfLevels = iLevel;
+      }
+    }
+
+  void SetLevelLimit( double iLimit )
+    {
+    if( iLimit > 0. )
+      {
+      m_LevelLimit = iLimit;
+      }
     }
 
   void Update()
@@ -105,23 +122,23 @@ public:
       return;
       }
 
-    const int LevelSet_id = 0;
     vtkSmartPointer< vtkMarchingSquares > contours =
       vtkSmartPointer< vtkMarchingSquares >::New();
-    contours->SetInput( m_ImageConverter->GetOutput() );
-    contours->GenerateValues( LevelSet_id, 0, 0 );
+    contours->SetInput( m_LevelSetConverter->GetOutput() );
+    contours->GenerateValues( m_NumberOfLevels, - m_LevelLimit, m_LevelLimit );
+    contours->Update();
 
     vtkSmartPointer< vtkPolyDataMapper > mapper =
         vtkSmartPointer< vtkPolyDataMapper >::New();
     mapper->SetInputConnection( contours->GetOutputPort() );
-    mapper->SetScalarRange( -10, 10 );
+    mapper->SetScalarRange( - m_LevelLimit, m_LevelLimit );
 
     vtkSmartPointer< vtkActor > ContourActor =
         vtkSmartPointer< vtkActor >::New();
     ContourActor->SetMapper( mapper );
     ContourActor->GetProperty()->SetLineWidth( 2. );
-    ContourActor->GetProperty()->SetColor( 0, 0, 1 );
-    ContourActor->GetProperty()->SetOpacity( 1.0 );
+    ContourActor->GetProperty()->SetColor( 1, 0, 0 );
+    //ContourActor->GetProperty()->SetOpacity( 1.0 );
 
     vtkSmartPointer< vtkImageShiftScale > shift =
         vtkSmartPointer< vtkImageShiftScale >::New();
@@ -132,6 +149,12 @@ public:
     vtkSmartPointer< vtkImageActor > input_Actor =
         vtkSmartPointer< vtkImageActor >::New();
     input_Actor->SetInput( shift->GetOutput() );
+
+    vtkSmartPointer< vtkScalarBarActor > scalarbar =
+        vtkSmartPointer< vtkScalarBarActor >::New();
+    scalarbar->SetLookupTable( mapper->GetLookupTable() );
+    scalarbar->SetTitle( "Level Set Values" );
+    scalarbar->SetNumberOfLabels( m_NumberOfLevels );
 
     vtkSmartPointer< vtkRenderer > ren =
         vtkSmartPointer< vtkRenderer >::New();
@@ -145,15 +168,15 @@ public:
 
     ren->AddActor ( input_Actor );
     ren->AddActor ( ContourActor );
+    ren->AddActor2D( scalarbar );
+
+    iren->SetRenderWindow( renWin );
 
     renWin->AddRenderer( ren );
+    renWin->Render();
 
     if( m_ScreenCapture )
       {
-      iren->SetRenderWindow( renWin );
-
-      renWin->Render();
-
       std::string filename;
       std::stringstream yo;
       yo << "snapshot_" << m_Count;
@@ -162,19 +185,21 @@ public:
 
       vtkCaptureScreen< vtkPNGWriter > capture ( renWin );
       // begin mouse interaction
-      iren->Start();
+//      iren->Start();
       capture( filename );
       ++m_Count;
       }
     else
       {
-      renWin->Render();
+      iren->Start();
       }
     }
 
 protected:
   vtkVisualize2DLevelSetImageBase() : Superclass(),
     m_Count( 0 ),
+    m_NumberOfLevels( 1 ),
+    m_LevelLimit( 0 ),
     m_ScreenCapture( false )
     {
     m_ImageConverter = ImageConverterType::New();
@@ -192,6 +217,8 @@ private:
   LevelSetConverterPointer  m_LevelSetConverter;
 
   itk::IdentifierType m_Count;
+  unsigned int        m_NumberOfLevels;
+  double              m_LevelLimit;
   bool                m_ScreenCapture;
 
 };

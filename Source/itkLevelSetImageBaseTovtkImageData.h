@@ -49,7 +49,7 @@ public:
   typedef ImageToVTKImageFilter< ImageType >  ConverterType;
   typedef typename ConverterType::Pointer     ConverterPointer;
 
-  void SetInput( const LevelSetType* iLevelSet );
+  void SetInput( LevelSetType* iLevelSet );
 
   vtkImageData* GetOutput() const;
 

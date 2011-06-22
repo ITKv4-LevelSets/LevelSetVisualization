@@ -32,15 +32,20 @@ LevelSetImageBaseTovtkImageData< TImage >
 }
 
 template< class TImage >
+LevelSetImageBaseTovtkImageData< TImage >
+::~LevelSetImageBaseTovtkImageData()
+{}
+
+template< class TImage >
 void
 LevelSetImageBaseTovtkImageData< TImage >
-::SetInput( const LevelSetType* iLevelSet )
+::SetInput( LevelSetType* iLevelSet )
 {
-  if( iLevelSet == NULL )
+  if( !iLevelSet )
     {
     itkGenericExceptionMacro( <<"iLevelSet is NULL" );
     }
-  if( iLevelSet->GetImage() == NULL )
+  if( !iLevelSet->GetImage() )
     {
     itkGenericExceptionMacro( <<"iLevelSet->GetImage() is NULL" );
     }
