@@ -1,6 +1,7 @@
 set( SRC
   HeaderTest
   vtkVisualize2DLevelSetImageBaseTest
+  vtkVisualize2DWhitakerLevelSetTest
 )
 
 foreach( var ${SRC} )

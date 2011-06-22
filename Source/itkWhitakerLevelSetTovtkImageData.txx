@@ -24,17 +24,17 @@
 
 namespace itk
 {
-template< class TImage >
-WhitakerLevelSetTovtkImageData< TImage >
+template< typename TOutput, unsigned int VDimension >
+WhitakerLevelSetTovtkImageData< TOutput, VDimension >
 ::WhitakerLevelSetTovtkImageData()
 {
   m_Converter = ConverterType::New();
 }
 
-template< class TImage >
+template< typename TOutput, unsigned int VDimension >
 void
-WhitakerLevelSetTovtkImageData< TImage >
-::SetInput( const LevelSetType* iLevelSet )
+WhitakerLevelSetTovtkImageData< TOutput, VDimension >
+::SetInput( LevelSetType* iLevelSet )
 {
   if( iLevelSet == NULL )
     {
@@ -47,17 +47,17 @@ WhitakerLevelSetTovtkImageData< TImage >
   m_Converter->SetInput( iLevelSet->GetOutputImage() );
 }
 
-template< class TImage >
+template< typename TOutput, unsigned int VDimension >
 vtkImageData*
-WhitakerLevelSetTovtkImageData< TImage >
+WhitakerLevelSetTovtkImageData< TOutput, VDimension >
 ::GetOutput() const
 {
   return m_Converter->GetOutput();
 }
 
-template< class TImage >
+template< typename TOutput, unsigned int VDimension >
 void
-WhitakerLevelSetTovtkImageData< TImage >
+WhitakerLevelSetTovtkImageData< TOutput, VDimension >
 ::Update()
 {
   m_Converter->Update();
