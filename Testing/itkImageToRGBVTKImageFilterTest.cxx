@@ -64,6 +64,9 @@ void GenerateImage( typename TImage::Pointer ioImage )
 
 int main( int argc, char* argv[] )
 {
+  (void) argc;
+  (void) argv;
+
   typedef unsigned char PixelType;
   const unsigned int Dimension = 2;
   typedef itk::Image< PixelType, Dimension > ImageType;
