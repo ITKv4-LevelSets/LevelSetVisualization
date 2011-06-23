@@ -5,6 +5,9 @@ set( SRC
   vtkVisualize2DShiLevelSetTest
   vtkVisualize2DMalcolmLevelSetTest
   itkImageToRGBVTKImageFilterTest
+  vtkVisualize2DWhitakerLevelSetLayersTest
+  vtkVisualize2DShiLevelSetLayersTest
+  vtkVisualize2DMalcolmLevelSetLayersTest
 )
 
 foreach( var ${SRC} )

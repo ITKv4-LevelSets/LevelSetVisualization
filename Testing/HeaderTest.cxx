@@ -23,6 +23,9 @@
 #include "vtkVisualize2DLevelSetImageBase.h"
 #include "vtkVisualize3DLevelSetImageBase.h"
 #include "itkImageToRGBVTKImageFilter.h"
+#include "vtkVisualize2DWhitakerLevelSetLayers.h"
+#include "vtkVisualize2DShiLevelSetLayers.h"
+#include "vtkVisualize2DMalcolmLevelSetLayers.h"
 
 int main( int, char* [] )
 {
