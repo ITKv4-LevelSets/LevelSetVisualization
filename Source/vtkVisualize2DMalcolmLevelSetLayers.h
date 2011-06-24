@@ -77,13 +77,11 @@ public:
       return;
       }
 
-    m_Count = 0;
     }
 
   void SetLevelSet( LevelSetType *f )
     {
     m_LevelSet = f;
-    m_Count = 0;
     }
 
   void SetScreenCapture( const bool& iCapture )
@@ -145,8 +143,6 @@ public:
     ren->AddActor ( input_Actor );
 //    ren->AddActor2D( scalarbar );
 
-    iren->SetRenderWindow( renWin );
-
     renWin->AddRenderer( ren );
     renWin->Render();
 
@@ -166,6 +162,7 @@ public:
       }
     else
       {
+      iren->SetRenderWindow( renWin );
       iren->Start();
       }
     }
