@@ -67,5 +67,5 @@ private:
 };
 }
 
-#include "itkLevelSetImageBaseTovtkImageData.txx"
+#include "itkLevelSetImageBaseTovtkImageData.hxx"
 #endif // __itkLevelSetImageBaseTovtkImageData_h

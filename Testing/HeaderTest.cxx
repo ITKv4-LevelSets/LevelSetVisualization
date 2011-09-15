@@ -17,9 +17,9 @@
  *=========================================================================*/
 
 #include "itkLevelSetImageBaseTovtkImageData.h"
-#include "itkLevelSetImageBaseTovtkImageData.txx"
+#include "itkLevelSetImageBaseTovtkImageData.hxx"
 #include "itkImageToVTKImageFilter.h"
-#include "itkImageToVTKImageFilter.txx"
+#include "itkImageToVTKImageFilter.hxx"
 #include "vtkVisualize2DLevelSetImageBase.h"
 #include "vtkVisualize3DLevelSetImageBase.h"
 #include "itkImageToRGBVTKImageFilter.h"
