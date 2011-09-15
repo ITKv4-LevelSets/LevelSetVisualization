@@ -73,7 +73,7 @@ int main( int argc, char* argv[] )
   typedef double LevelSetOutputType;
   typedef itk::Image< LevelSetOutputType, Dimension > LevelSetImageType;
 
-  typedef itk::LevelSetImageBase< LevelSetImageType > LevelSetType;
+  typedef itk::LevelSetDenseImageBase< LevelSetImageType > LevelSetType;
 
   LevelSetImageType::Pointer LevelSetImage = LevelSetImageType::New();
   GenerateImage< LevelSetImageType >( LevelSetImage );

@@ -20,7 +20,7 @@
 #define __itkLevelSetImageBaseTovtkImageData_h
 
 #include "itkProcessObject.h"
-#include "itkLevelSetImageBase.h"
+#include "itkLevelSetDenseImageBase.h"
 #include "itkImageToVTKImageFilter.h"
 
 class vtkImageData;
@@ -44,7 +44,7 @@ public:
 
   typedef TImage                          ImageType;
 
-  typedef LevelSetImageBase< ImageType >  LevelSetType;
+  typedef LevelSetDenseImageBase< ImageType >  LevelSetType;
 
   typedef ImageToVTKImageFilter< ImageType >  ConverterType;
   typedef typename ConverterType::Pointer     ConverterPointer;

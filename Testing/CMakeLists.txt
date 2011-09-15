@@ -1,9 +1,9 @@
 set( SRC
   HeaderTest
   vtkVisualize2DLevelSetImageBaseTest
-  vtkVisualize2DWhitakerLevelSetTest
-  vtkVisualize2DShiLevelSetTest
-  vtkVisualize2DMalcolmLevelSetTest
+  #vtkVisualize2DWhitakerLevelSetTest
+  #vtkVisualize2DShiLevelSetTest
+  #vtkVisualize2DMalcolmLevelSetTest
   itkImageToRGBVTKImageFilterTest
   vtkVisualize2DWhitakerLevelSetLayersTest
   vtkVisualize2DShiLevelSetLayersTest

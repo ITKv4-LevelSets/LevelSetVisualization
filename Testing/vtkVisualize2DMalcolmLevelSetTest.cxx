@@ -18,7 +18,7 @@
 
 #include "vtkVisualize2DLevelSetImageBase.h"
 
-#include "itkMalcolmSparseLevelSetBase.h"
+#include "itkMalcolmSparseLevelSetImage.h"
 #include "itkBinaryImageToMalcolmSparseLevelSetAdaptor.h"
 
 #include "itkImage.h"

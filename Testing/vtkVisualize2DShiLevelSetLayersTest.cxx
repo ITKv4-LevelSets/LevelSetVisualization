@@ -18,7 +18,7 @@
 
 #include "vtkVisualize2DShiLevelSetLayers.h"
 
-#include "itkShiSparseLevelSetBase.h"
+#include "itkShiSparseLevelSetImage.h"
 #include "itkBinaryImageToShiSparseLevelSetAdaptor.h"
 
 #include "itkImage.h"

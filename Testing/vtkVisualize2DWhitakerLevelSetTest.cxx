@@ -18,7 +18,7 @@
 
 #include "vtkVisualize2DWhitakerLevelSet.h"
 
-#include "itkWhitakerSparseLevelSetBase.h"
+#include "itkWhitakerSparseLevelSetImage.h"
 #include "itkBinaryImageToWhitakerSparseLevelSetAdaptor.h"
 
 #include "itkImage.h"
