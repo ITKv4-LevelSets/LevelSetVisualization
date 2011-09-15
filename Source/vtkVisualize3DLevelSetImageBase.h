@@ -58,7 +58,7 @@ public:
   typedef TInputImage     InputImageType;
   typedef TLevelSetImage  LevelSetImageType;
 
-  typedef itk::LevelSetImageBase< LevelSetImageType > LevelSetType;
+  typedef itk::LevelSetDenseImageBase< LevelSetImageType > LevelSetType;
 
   typedef itk::ImageToVTKImageFilter< InputImageType >  ImageConverterType;
   typedef typename ImageConverterType::Pointer          ImageConverterPointer;

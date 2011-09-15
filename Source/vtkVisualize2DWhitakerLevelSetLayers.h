@@ -21,7 +21,7 @@
 
 #include "itkLightObject.h"
 
-#include "itkWhitakerSparseLevelSetBase.h"
+#include "itkWhitakerSparseLevelSetImage.h"
 
 #include "itkImageToRGBVTKImageFilter.h"
 #include "itkWhitakerLevelSetTovtkImageData.h"
@@ -60,8 +60,8 @@ public:
   typedef TInputImage                         InputImageType;
   typedef typename InputImageType::PixelType  InputPixelType;
 
-  typedef itk::WhitakerSparseLevelSetBase< TOutput, VDimension > LevelSetType;
-  typedef typename LevelSetType::Pointer                         LevelSetPointer;
+  typedef itk::WhitakerSparseLevelSetImage< TOutput, VDimension > LevelSetType;
+  typedef typename LevelSetType::Pointer                          LevelSetPointer;
 
   typedef itk::ImageToRGBVTKImageFilter< InputImageType >  ConverterType;
   typedef typename ConverterType::Pointer                  ConverterPointer;
@@ -97,14 +97,14 @@ public:
     {
     vtkSmartPointer< vtkImageData > VTKImage = m_ImageConverter->GetOutput();
 
-    typedef typename LevelSetType::NodeListType     NodeListType;
-    typedef typename LevelSetType::NodeListIterator NodeListIterator;
+    typedef typename LevelSetType::LayerType          LayerType;
+    typedef typename LevelSetType::LayerConstIterator LayerConstIterator;
 
-    NodeListType* layer = m_LevelSet->GetListNode( -2 );
+    LayerType layer = m_LevelSet->GetLayer( LevelSetType::MinusTwoLayer() );
 
-    NodeListIterator it = layer->begin();
+    LayerConstIterator it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
@@ -115,11 +115,11 @@ public:
       ++it;
       }
 
-    layer = m_LevelSet->GetListNode( -1 );
+    layer = m_LevelSet->GetLayer( LevelSetType::MinusOneLayer() );
 
-    it = layer->begin();
+    it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
@@ -130,11 +130,11 @@ public:
       ++it;
       }
 
-    layer = m_LevelSet->GetListNode( 0 );
+    layer = m_LevelSet->GetLayer( LevelSetType::ZeroLayer() );
 
-    it = layer->begin();
+    it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
@@ -145,11 +145,11 @@ public:
       ++it;
       }
 
-    layer = m_LevelSet->GetListNode( 1 );
+    layer = m_LevelSet->GetLayer( LevelSetType::PlusOneLayer() );
 
-    it = layer->begin();
+    it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
@@ -160,11 +160,11 @@ public:
       ++it;
       }
 
-    layer = m_LevelSet->GetListNode( 2 );
+    layer = m_LevelSet->GetLayer( LevelSetType::PlusTwoLayer() );
 
-    it = layer->begin();
+    it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =

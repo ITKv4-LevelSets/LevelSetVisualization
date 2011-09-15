@@ -21,7 +21,7 @@
 
 #include "itkLightObject.h"
 
-#include "itkWhitakerSparseLevelSetBase.h"
+#include "itkWhitakerSparseLevelSetImage.h"
 
 #include "itkImageToVTKImageFilter.h"
 #include "itkWhitakerLevelSetTovtkImageData.h"
@@ -45,7 +45,7 @@ template< class TInputImage, typename TOutput, unsigned int VDimension >
 class vtkVisualize2DWhitakerLevelSet : public itk::LightObject
 {
 public:
-  typedef vtkVisualize2DWhitakerLevelSet Self;
+  typedef vtkVisualize2DWhitakerLevelSet  Self;
   typedef LightObject                     Superclass;
   typedef itk::SmartPointer< Self >       Pointer;
   typedef itk::SmartPointer< const Self > ConstPointer;
@@ -57,12 +57,12 @@ public:
   itkTypeMacro(vtkVisualize2DWhitakerLevelSet, LightObject);
 
   typedef TInputImage     InputImageType;
-  typedef itk::WhitakerSparseLevelSetBase< TOutput, VDimension > LevelSetType;
+  typedef itk::WhitakerSparseLevelSetImage< TOutput, VDimension > LevelSetType;
 
   typedef itk::ImageToVTKImageFilter< InputImageType >  ImageConverterType;
   typedef typename ImageConverterType::Pointer          ImageConverterPointer;
 
-  typedef itk::WhitakerLevelSetTovtkImageData< TOutput, VDimension  >
+  typedef itk::WhitakerLevelSetTovtkImageData< TOutput, VDimension >
     LevelSetConverterType;
   typedef typename LevelSetConverterType::Pointer
     LevelSetConverterPointer;

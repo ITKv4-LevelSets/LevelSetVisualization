@@ -21,7 +21,7 @@
 
 #include "itkLightObject.h"
 
-#include "itkMalcolmSparseLevelSetBase.h"
+#include "itkMalcolmSparseLevelSetImage.h"
 
 #include "itkImageToRGBVTKImageFilter.h"
 
@@ -44,7 +44,7 @@ template< class TInputImage, unsigned int VDimension >
 class vtkVisualize2DMalcolmLevelSetLayers : public itk::LightObject
 {
 public:
-  typedef vtkVisualize2DMalcolmLevelSetLayers  Self;
+  typedef vtkVisualize2DMalcolmLevelSetLayers   Self;
   typedef LightObject                           Superclass;
   typedef itk::SmartPointer< Self >             Pointer;
   typedef itk::SmartPointer< const Self >       ConstPointer;
@@ -58,8 +58,8 @@ public:
   typedef TInputImage                         InputImageType;
   typedef typename InputImageType::PixelType  InputPixelType;
 
-  typedef itk::MalcolmSparseLevelSetBase< VDimension > LevelSetType;
-  typedef typename LevelSetType::Pointer           LevelSetPointer;
+  typedef itk::MalcolmSparseLevelSetImage< VDimension > LevelSetType;
+  typedef typename LevelSetType::Pointer                LevelSetPointer;
 
   typedef itk::ImageToRGBVTKImageFilter< InputImageType >  ConverterType;
   typedef typename ConverterType::Pointer                  ConverterPointer;
@@ -95,14 +95,14 @@ public:
     {
     vtkSmartPointer< vtkImageData > VTKImage = m_ImageConverter->GetOutput();
 
-    typedef typename LevelSetType::NodeListType     NodeListType;
-    typedef typename LevelSetType::NodeListIterator NodeListIterator;
+    typedef typename LevelSetType::LayerType          LayerType;
+    typedef typename LevelSetType::LayerConstIterator LayerConstIterator;
 
-    NodeListType* layer = m_LevelSet->GetListNode();
+    LayerType layer = m_LevelSet->GetLayer( LevelSetType::ZeroLayer() );
 
-    NodeListIterator it = layer->begin();
+    LayerConstIterator it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =

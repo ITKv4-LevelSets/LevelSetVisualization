@@ -15,8 +15,8 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef _itkImageToRGBVTKImageFilter_txx
-#define _itkImageToRGBVTKImageFilter_txx
+#ifndef __itkImageToRGBVTKImageFilter_hxx
+#define __itkImageToRGBVTKImageFilter_hxx
 
 #include "itkImageToRGBVTKImageFilter.h"
 

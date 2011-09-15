@@ -21,7 +21,7 @@
 
 #include "itkLightObject.h"
 
-#include "itkShiSparseLevelSetBase.h"
+#include "itkShiSparseLevelSetImage.h"
 
 #include "itkImageToRGBVTKImageFilter.h"
 
@@ -45,10 +45,10 @@ template< class TInputImage, unsigned int VDimension >
 class vtkVisualize2DShiLevelSetLayers : public itk::LightObject
 {
 public:
-  typedef vtkVisualize2DShiLevelSetLayers  Self;
-  typedef LightObject                           Superclass;
-  typedef itk::SmartPointer< Self >             Pointer;
-  typedef itk::SmartPointer< const Self >       ConstPointer;
+  typedef vtkVisualize2DShiLevelSetLayers   Self;
+  typedef LightObject                       Superclass;
+  typedef itk::SmartPointer< Self >         Pointer;
+  typedef itk::SmartPointer< const Self >   ConstPointer;
 
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
@@ -59,8 +59,8 @@ public:
   typedef TInputImage                         InputImageType;
   typedef typename InputImageType::PixelType  InputPixelType;
 
-  typedef itk::ShiSparseLevelSetBase< VDimension > LevelSetType;
-  typedef typename LevelSetType::Pointer           LevelSetPointer;
+  typedef itk::ShiSparseLevelSetImage< VDimension > LevelSetType;
+  typedef typename LevelSetType::Pointer            LevelSetPointer;
 
   typedef itk::ImageToRGBVTKImageFilter< InputImageType >  ConverterType;
   typedef typename ConverterType::Pointer                  ConverterPointer;
@@ -96,14 +96,14 @@ public:
     {
     vtkSmartPointer< vtkImageData > VTKImage = m_ImageConverter->GetOutput();
 
-    typedef typename LevelSetType::NodeListType     NodeListType;
-    typedef typename LevelSetType::NodeListIterator NodeListIterator;
+    typedef typename LevelSetType::LayerType          LayerType;
+    typedef typename LevelSetType::LayerConstIterator LayerConstIterator;
 
-    NodeListType* layer = m_LevelSet->GetListNode( -1 );
+    LayerType layer = m_LevelSet->GetLayer( LevelSetType::MinusOneLayer() );
 
-    NodeListIterator it = layer->begin();
+    LayerConstIterator it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
@@ -114,11 +114,11 @@ public:
       ++it;
       }
 
-    layer = m_LevelSet->GetListNode( 1 );
+    layer = m_LevelSet->GetLayer( LevelSetType::PlusOneLayer() );
 
-    it = layer->begin();
+    it = layer.begin();
 
-    while( it != layer->end() )
+    while( it != layer.end() )
       {
       typename InputImageType::IndexType idx = it->first;
       InputPixelType* vtkpixel =
